@@ -2,6 +2,7 @@ from django.db import models
 
 
 class News(models.Model):
+    objects = None
     title = models.CharField(max_length=256, verbose_name="Title")
     preambule = models.CharField(max_length=1024, verbose_name="Preambule")
     body = models.TextField(blank=True, null=True, verbose_name="Body")
@@ -15,6 +16,8 @@ class News(models.Model):
     auto_now=True, verbose_name="Edited", editable=False
     )
     deleted = models.BooleanField(default=False)
+    #test = models.CharField(max_length=256, verbose_name="Title", blank=True)
+
     def __str__(self) -> str:
         return f"{self.pk} {self.title}"
 
