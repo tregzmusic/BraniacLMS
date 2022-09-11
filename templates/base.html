@@ -22,6 +22,9 @@
 
 {% include 'includes/main_menu.html' %}
 
+{% block messages %}
+{% include 'includes/messages.html' %}
+{% endblock messages %}
 
 
     <div class="container-md">
@@ -38,64 +41,74 @@ reprehenderit?
 
     <!-- Footer -->
 
-    <div class="container-lg mt-auto">
-        <hr>
-        <div class="row justify-content-center">
-            <div class="col-sm-6 col-md-3 text-center">
-                <p>
-                    <strong>Braniac</strong>
-                </p>
-                <p>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'mainapp:index' %}">Домашняя</a></li>
-                    <li><a href="{% url 'mainapp:news' %}">Новости</a></li>
-                    <li><a href="{% url 'mainapp:login' %}">Войти</a></li>
-                </ul>
-                </p>
-            </div>
-            <div class="col-sm-6 col-md-3 text-center">
-                <p>
-                    <strong>Полезное</strong>
-                </p>
-                <p>
-                <ul class="list-unstyled">
-                    <li><a href="#">Положения &amp; Условия</a></li>
-                    <li><a href="#">Конфиденциальность &amp; Cookies</a></li>
-                    <li><a href="#">Документация по API</a></li>
-                    <li><a href="{% url 'mainapp:doc_site' %}">Документация по сайту</a></li>
-                </ul>
-                </p>
-            </div>
-            <div class="col-sm-6 col-md-3 text-center">
-                <p>
-                    <strong>Мы в социальных сетях</strong>
-                </p>
-                <p>
-                <div class="row justify-content-around">
-                    <div><a href="#"><i class="fab fa-vk fa-2x"></i></a></div>
-                    <div><a href="#"><i class="fab fa-facebook-f fa-2x"></i></a></div>
-                    <div><a href="#"><i class="fab fa-instagram fa-2x"></i></a></div>
-                    <div><a href="#"><i class="fab fa-pinterest-p fa-2x"></i></a></div>
-                </div>
-                </p>
-                <p>
-                    <strong>Наше приложение</strong>
-                </p>
-                <p>
-                <div class="row justify-content-around">
-                    <div><a href="#"><i class="fab fa-app-store fa-2x"></i></a></div>
-                    <div><a href="#"><i class="fab fa-google-play fa-2x"></i></a></div>
-                    <div><a href="#"><i class="fab fa-windows fa-2x"></i></a></div>
-                </div>
-                </p>
-            </div>
+<div class="container-lg mt-auto">
+    <hr>
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-md-3 text-center">
+        <p>
+          <strong>Braniac</strong>
+        </p>
+        <p>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'mainapp:main_page' %}">Домашняя</a></li>
+          <li><a href="{% url 'mainapp:news' %}">Новости</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'authapp:logout' %}">Выйти</a></li>
+          {% else %}
+          <li><a href="{% url 'authapp:login' %}">Войти</a></li>
+          {% endif %}
+        </ul>
+        </p>
+      </div>
+      <div class="col-sm-6 col-md-3 text-center">
+        <p>
+          <strong>Полезное</strong>
+        </p>
+        <p>
+        <ul class="list-unstyled">
+          <li><a href="#">Положения &amp; Условия</a></li>
+          <li><a href="#">Конфиденциальность &amp; Cookies</a></li>
+          <li><a href="#">Документация по API</a></li>
+          <li><a href="{% url 'mainapp:doc_site' %}">Документация по сайту</a>
+          </li>
+        </ul>
+        </p>
+      </div>
+      <div class="col-sm-6 col-md-3 text-center">
+        <p>
+          <strong>Мы в социальных сетях</strong>
+        </p>
+        <p>
+        <div class="row justify-content-around">
+          <div><a href="#"><i class="fab fa-vk fa-2x"></i></a></div>
+          <div><a href="#"><i class="fab fa-facebook-f fa-2x"></i></a>
+          </div>
+          <div><a href="#"><i class="fab fa-instagram fa-2x"></i></a>
+          </div>
+          <div><a href="#"><i class="fab fa-pinterest-p fa-2x"></i></a></div>
         </div>
-        <div class="row justify-content-center">
-            <div>
-                <p><small>&copy; GeekBrains 2021</small></p>
-            </div>
+        </p>
+        <p>
+          <strong>Наше приложение</strong>
+        </p>
+        <p>
+        <div class="row justify-content-around">
+          <div><a href="#"><i class="fab fa-app-store fa-2x"></i></a>
+          </div>
+          <div><a href="#"><i class="fab fa-google-play fa-2x"></i></a></div>
+          <div><a href="#"><i class="fab fa-windows fa-2x"></i></a>
+          </div>
         </div>
+        </p>
+      </div>
     </div>
+    <div class="row justify-content-center">
+      <div>
+        <p><small>&copy; GeekBrains 2021</small></p>
+      </div>
+    </div>
+  </div>
+
 
     <!-- /Footer -->
 
@@ -113,6 +126,20 @@ reprehenderit?
 
     <!-- FontAwesome -->
     <script src="{% static 'js/fontawesome.all.min.js' %}"></script>
+
+{% block js %}
+  <script>
+    $(document).ready(function () {
+
+      {% if messages %}
+      // Toasts
+      $(".toast").toast({ delay: 5000 });
+      $(".toast").toast("show");
+      {% endif %}
+
+    });
+  </script>
+  {% endblock js %}
 
 
 
