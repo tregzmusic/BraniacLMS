@@ -205,11 +205,11 @@ CELERY_RESULT_BACKEND = "redis://localhost:6379"
 # EMAIL_PORT = "25"
 
 # For debugging: python -m smtpd -n -c DebuggingServer localhost:25
-# EMAIL_HOST_USER = "django@geekshop.local"
-# EMAIL_HOST_PASSWORD = "geekshop"
-# EMAIL_USE_SSL = False
-# If server support TLS:
-# EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('geekshop')
+EMAIL_USE_SSL = False
+#If server support TLS:
+EMAIL_USE_TLS = True
 
 # Email as files for debug
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
